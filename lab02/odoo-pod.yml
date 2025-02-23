@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: odoo-pod
+  namespace: test
+  labels:
+    app: odoo-app
+spec:
+  containers:
+  - name: odoo
+    image: odoo:17.0
+    ports:
+    - containerPort: 8069
+    env:
+    - name: HOST
+      value: odoo
+    - name: USER
+      value: modeste
+    - name: PASSWORD
+      value: modeste123
+
+  - name: postgres
+    image: postgres:15
+    env:
+    - name: POSTGRES_USER
+      value: modeste
+    - name: POSTGRES_DB
+      value: postgres
+    - name: POSTGRES_PASSWORD
+      value: modeste123
+    - name: POSTGRES_DATA
+      value: /var/lib/postgres/data/pgdata/
