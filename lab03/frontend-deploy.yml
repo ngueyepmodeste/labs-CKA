@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: test
+  name: deploy-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec: 
+      containers:
+      - name: app
+        image: ngueyepmodeste/e-commerce:1.1
+        ports: 
+        - containerPort: 80
+
+        volumeMounts:
+        - name: web-vol
+          mountPath: /var/www/html
+
+      volumes:
+      - name: web-vol
+        persistentVolumeClaim: 
+          claimName: pvc-pod1

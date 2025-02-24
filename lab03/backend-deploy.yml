@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-db
+  namespace: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-sql
+  template:
+    metadata:
+      labels:
+        app: db-sql
+    spec:
+      containers:
+      - name: app
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: admin
+        - name: MYSQL_DATABASE
+          value: mysql
+        - name: MYSQL_USER
+          value: modeste
+        - name: MYSQL_PASSWORD
+          value: modeste123
+
+        volumeMounts:
+        - name: db-vol 
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: db-vol
+        persistentVolumeClaim:
+           claimName: pvc-pod2    
