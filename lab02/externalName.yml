@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+   name: svc-en
+   namespace: test
+spec:
+  type: ExternalName
+  externalName: www.google.com
+  ports:
+  - port: 8080
