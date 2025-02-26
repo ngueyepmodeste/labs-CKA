@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+ name: pod-taint
+spec: 
+ tolerations:
+ - key: "typeinstance"
+   value: app
+   operator: Equal
+   effect: NoSchedule
+ containers:
+  - name: pod 
+    image: nginx
+    ports:
+    - containerPort: 80
